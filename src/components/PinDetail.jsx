@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
-const PinDetail = () => {
+const PinDetail = ({ user }) => {
+    const [pins, setPins] = useState(null);
+    const [pinDetails, setPinDetails] = useState(null);
     return <div>pindetails</div>;
 };
 
