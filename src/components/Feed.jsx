@@ -10,10 +10,11 @@ const Feed = () => {
     const [loading, setLoading] = useState(false);
     const [pins, setPins] = useState(null);
     const { categoryId } = useParams();
+    console.log("dsf", categoryId);
 
     useEffect(() => {
-        setLoading(true);
         if (categoryId) {
+            setLoading(true);
             const query = searchQuery(categoryId);
 
             client.fetch(query).then((data) => {
@@ -21,6 +22,7 @@ const Feed = () => {
                 setLoading(false);
             });
         } else {
+            setLoading(true);
             client.fetch(feedQuery).then((data) => {
                 setPins(data);
                 setLoading(false);
@@ -28,8 +30,14 @@ const Feed = () => {
         }
     }, [categoryId]);
 
+    const ideaName = categoryId || "new";
+
     if (loading)
-        return <Spinner message="We are adding new ideas to your feed!" />;
+        return (
+            <Spinner
+                message={`We are adding ${ideaName} new ideas to your feed!`}
+            />
+        );
 
     return <div>{pins && <MasonryLayout pins={pins} />}</div>;
 };
